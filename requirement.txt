@@ -1,0 +1,10 @@
+djangorestframework
+numpy
+pandas
+matplotlib
+scikit-learn
+requests
+python-whois
+urllib3
+bs4
+tldextract
