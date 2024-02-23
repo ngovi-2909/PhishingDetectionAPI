@@ -5,14 +5,14 @@ from .serializers import PredictionSerializer
 from train_model import Phishing_detection
 from .service.PredictRepository import PredictRepository
 
-
 # Create your views here.
 
 model = PredictRepository()
+
+
 @api_view(['GET'])
 def ApiOverview(request):
     api_urls = {
-        'get_predict': '/predict',
         'predictURL': '/predict',
     }
     return Response(api_urls)
@@ -26,9 +26,7 @@ def predict_url(request):
         # item.save()
         domain = item.data.get('domain')
         predict_model = model.get_model()
-        result = Phishing_detection.predict(predict_model,domain)
+        result = Phishing_detection.predict(predict_model, domain)
         return Response({"result": result}, status=status.HTTP_201_CREATED)
     else:
         return Response(item.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
