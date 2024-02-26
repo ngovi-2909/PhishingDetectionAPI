@@ -156,6 +156,7 @@ def predict(model, url):
     df = pd.DataFrame([create_vector(url)], columns=get_columns())
     rf_predict = model.predict(df)
     result = {'web_traffic': df['webTraffic'].iloc[0],
+              'page_rank': df['page_rank'].iloc[0],
               'domain_age': df['domain_age'].iloc[0],
               'domain_register_length': df['domainRegLen'].iloc[0],
               'result': rf_predict.tolist()[0]
