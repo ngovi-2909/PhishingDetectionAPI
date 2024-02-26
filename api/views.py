@@ -27,6 +27,6 @@ def predict_url(request):
         domain = item.data.get('domain')
         predict_model = model.get_model()
         result = Phishing_detection.predict(predict_model, domain)
-        return Response({"result": result}, status=status.HTTP_201_CREATED)
+        return Response({"data": result}, status=status.HTTP_201_CREATED)
     else:
         return Response(item.errors, status=status.HTTP_400_BAD_REQUEST)

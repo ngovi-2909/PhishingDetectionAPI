@@ -154,7 +154,7 @@ def CountStar(url):
 def CountHttp(url):
     parsed_url = urlparse(url)
     protocol = parsed_url.scheme
-    if (protocol == "http" or protocol == "https"):
+    if protocol == "http" or protocol == "https":
         return len(re.findall("http", url)) - 1
     return len(re.findall("http", url))
 
@@ -191,7 +191,7 @@ def have_prefixOrSuffix(url):
 
 # 26
 def web_forwarding(response):
-    if (response == ""):
+    if response == "":
         return 0
     return len(response.history)
 
@@ -245,8 +245,8 @@ def page_rank(key, url):
         return 0
 
 
-#30
-def dns_expiration_length(url):
+# 30
+def dns_expiration(url):
     try:
         return 0 if len(socket.gethostbyname(get_hostname(url))) > 0 else 1
     except:
@@ -283,7 +283,7 @@ def LinksInScriptTags(response, url):
 # AnchorURL 18
 # Percentile of safe anchor
 def AnchorURL(response, url):
-    if (response == ""):
+    if response == "":
         return 0
     else:
         domain = urlparse(url).netloc
@@ -375,6 +375,7 @@ def shortest_word_length(raw_words):
         return 0
     return min(len(word) for word in raw_words)
 
+
 ###################################################################################
 # get token of neilpatel https://app.neilpatel.com/api/get_token
 ###################################################################################
@@ -391,6 +392,8 @@ def get_token():
         return token
     else:
         return None
+
+
 ###################################################################################
 # check web traffic base on site https://app.neilpatel.com/en/traffic_analyzer
 ###################################################################################
@@ -420,6 +423,7 @@ def web_traffic(url):
             return 0
     except:
         return 0
+
 
 def whois_registered_domain(url):
     try:

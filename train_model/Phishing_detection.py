@@ -25,7 +25,7 @@ def create_vector(url):
         response = ""
 
     try:
-        domain_name = whois.whois(urlparse(url).netloc)
+        domain_name = whois(urlparse(url).netloc)
     except:
         flag = 0
     features.append(is_ip(url)),
@@ -52,7 +52,7 @@ def create_vector(url):
     features.append(RatioDigitsInHostname(url)),
     features.append(RatioDigitsURL(url)),
     features.append(have_prefixOrSuffix(url)),
-    features.append(dns_expiration_length(url)),
+    features.append(dns_expiration(url)),
     features.append(web_forwarding(response)),
     features.append(page_rank(key, url)),
 
@@ -135,7 +135,7 @@ def get_columns():
 
 def train_data():
     # Read data
-    data = pd.read_csv('train_model/data.csv')
+    data = pd.read_csv('./train_model/data.csv')
 
     # Split data into X and y
     X = data.drop(['url', 'status'], axis=1)
@@ -155,7 +155,13 @@ def train_data():
 def predict(model, url):
     df = pd.DataFrame([create_vector(url)], columns=get_columns())
     rf_predict = model.predict(df)
-    return rf_predict.tolist()[0]
+    result = {'web_traffic': df['webTraffic'].iloc[0],
+              'domain_age': df['domain_age'].iloc[0],
+              'domain_register_length': df['domainRegLen'].iloc[0],
+              'result': rf_predict.tolist()[0]
+              }
+
+    return result
 
 #
 # def main():
