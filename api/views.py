@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .serializers import PredictionSerializer
 from train_model import Phishing_detection
 from .service.PredictRepository import PredictRepository
-
+import re
 # Create your views here.
 
 model = PredictRepository()
