@@ -9,7 +9,6 @@ from .service.PredictRepository import PredictRepository
 
 model = PredictRepository()
 
-
 @api_view(['GET'])
 def ApiOverview(request):
     api_urls = {
