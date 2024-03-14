@@ -2,9 +2,21 @@ import pandas as pd
 import whois
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from train_model.features import *
 
+scaler = MinMaxScaler()
+data = pd.read_csv('train_model/data.csv')
+data['status'] = data['status'].map({'phishing': 1, 'legitimate': 0})
+
+# Split data into X and y
+X = data.drop(['url', 'status'], axis=1).values
+y = data['status'].values
+
+# scale data
+scaler.fit(X)
+# start scale
+X = scaler.transform(X)
 
 
 def create_vector(url):
@@ -152,17 +164,8 @@ def get_columns():
         'whoisRegistered',
     ]
 
+
 def train_data():
-    # Read data
-
-    data = pd.read_csv('train_model/data.csv')
-    data['status'] = data['status'].map({'phishing': 1, 'legitimate': 0})
-
-    # Split data into X and y
-    X = data.drop(['url', 'status'], axis=1).values
-    y = data['status'].values
-
-    # Train model
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
     randomForest = RandomForestClassifier()
     model_rf = randomForest.fit(X_train, y_train)
@@ -175,7 +178,7 @@ def predict(model, url):
     age = df['domain_age'].iloc[0]
     regLen = df['domainRegLen'].iloc[0]
     pageRank = df['page_rank'].iloc[0]
-
+    df = scaler.transform(df)
     rf_predict = model.predict(df)
 
     result = {'web_traffic': traffic,
