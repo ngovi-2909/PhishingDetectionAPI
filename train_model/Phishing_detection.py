@@ -1,3 +1,4 @@
+import joblib
 import pandas as pd
 import whois
 from sklearn.model_selection import train_test_split
@@ -5,20 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import MinMaxScaler
 from train_model.features import *
 
-scaler = MinMaxScaler()
-data = pd.read_csv('train_model/data.csv')
-data['status'] = data['status'].map({'phishing': 1, 'legitimate': 0})
 
-# Split data into X and y
-X = data.drop(['url', 'status'], axis=1).values
-y = data['status'].values
-
-# scale data
-scaler.fit(X)
-# start scale
-X = scaler.transform(X)
-
-
+scaler = joblib.load('train_model/scaler.sav')
 def create_vector(url):
     key = "wgowgcc4s4os0os8skw4wckw88s8wwkccwcsgcgg"
     flag = 1
@@ -58,6 +47,7 @@ def create_vector(url):
 
     features.append(countSemicolon(url)),
     features.append(countDollar(url)),
+    features.append(countAnd(url)),
 
     features.append(countSlash(url)),
     features.append(have_redirect(url)),
@@ -125,6 +115,7 @@ def get_columns():
         'CountComma',
         'CountSemicolon',
         'CountDollar',
+        'CountAnd',
         'CountSlash',
         'have_redirect',
         'CountEqual',
@@ -164,12 +155,6 @@ def get_columns():
         'whoisRegistered',
     ]
 
-
-def train_data():
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-    randomForest = RandomForestClassifier()
-    model_rf = randomForest.fit(X_train, y_train)
-    return model_rf
 
 
 def predict(model, url):

@@ -41,7 +41,6 @@ def length_hostname(url):
     hostname = parsed_url.hostname
     return len(hostname)
 
-
 # 4
 shortening_services = r"bit\.ly|goo\.gl|shorte\.st|go2l\.ink|x\.co|ow\.ly|t\.co|tinyurl|tr\.im|is\.gd|cli\.gs|" \
                       r"yfrog\.com|migre\.me|ff\.im|tiny\.cc|url4\.eu|twit\.ac|su\.pr|twurl\.nl|snipurl\.com|" \
@@ -95,7 +94,7 @@ def countDollar(url):
 
 # 12
 def countAnd(url):
-    return len(re.findall("\&"), url)
+    return len(re.findall("\&", url))
 
 
 # 13
@@ -306,19 +305,20 @@ def popup_window(response):
       return 0
 
 def abnormal_subdomain(url):
-    if re.search('(http[s]?://(w[w]?|\d))([w]?(\d|-))',url):
+    matches = re.findall('(http[s]?://(w[w]?|\d))([w]?(\d|-))', url)
+    if matches:
         return 1
     return 0
 
-def iframe(response):
-  if response == "":
-      return 0
-  else:
-      if re.findall(r"[<iframe>|<frameBorder>]", response):
-          return 1
-      else:
-          return 0
 
+def iframe(response):
+    if response == "":
+        return 0
+    else:
+        if re.compile(r"<iframe>|<frameBorder>").finditer(response):
+            return 1
+        else:
+            return 0
 ##
 def words_raw_extraction(domain, subdomain, path):
     w_domain = re.split("\-|\.|\/|\?|\=|\@|\&|\%|\:|\_", domain.lower())
