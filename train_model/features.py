@@ -17,7 +17,7 @@ def get_hostname(url):
     return parsed_url.path if parsed_url.path == url else parsed_url.hostname
 
 
-# 1
+
 def is_ip(url):
     try:
         host_name = get_hostname(url)
@@ -30,18 +30,18 @@ def is_ip(url):
         return 0
 
 
-# 2
+
 def length_url(url):
     return len(url)
 
 
-# 3
+
 def length_hostname(url):
     parsed_url = urlparse(url)
     hostname = parsed_url.hostname
     return len(hostname)
 
-# 4
+
 shortening_services = r"bit\.ly|goo\.gl|shorte\.st|go2l\.ink|x\.co|ow\.ly|t\.co|tinyurl|tr\.im|is\.gd|cli\.gs|" \
                       r"yfrog\.com|migre\.me|ff\.im|tiny\.cc|url4\.eu|twit\.ac|su\.pr|twurl\.nl|snipurl\.com|" \
                       r"short\.to|BudURL\.com|ping\.fm|post\.ly|Just\.as|bkite\.com|snipr\.com|fic\.kr|loopt\.us|" \
@@ -60,49 +60,42 @@ def tiny_url(url):
         return 0
 
 
-# 5
+
 def countAtSign(url):
     return len(re.findall("\@", url))
 
 
-# 6
+
 def countQuestionMark(url):
     return len(re.findall("\?", url))
 
-# 7
+
 def countHyphen(url):
     return len(re.findall("\-", url))
-# 8
 def countDot(url):
     return len(re.findall("\.", url))
 
 
-# 9
 def countComma(url):
     return len(re.findall("\,", url))
 
 
-# 10
 def countSemicolon(url):
     return len(re.findall("\;", url))
 
 
-# 11
+
 def countDollar(url):
     return len(re.findall("\$", url))
 
-
-# 12
 def countAnd(url):
     return len(re.findall("\&", url))
 
-
-# 13
 def countSlash(url):
     return len(re.findall(r'/', url))
 
 
-# redirect '//' 14
+# redirect '//'
 def have_redirect(url):
     parsed_url = urllib.parse.urlparse(url)
     protocol = parsed_url.scheme
@@ -114,39 +107,38 @@ def have_redirect(url):
         return 0
 
 
-# 15
 def CountEqual(url):
     return len(re.findall("\=", url))
 
 
-# 16
+
 def CountPercent(url):
     return len(re.findall("\%", url))
 
 
-# 17
+
 def CountUnderScore(url):
     return len(re.findall("\_", url))
 
 
-# 18
+
 def CountDotHostName(url):
     parsed_url = urlparse(url)
     hostname = parsed_url.hostname
     return len(re.findall("\.", hostname))
 
 
-# 19
+
 def CountColon(url):
     return len(re.findall("\:", url))
 
 
-# 20
+
 def CountStar(url):
     return len(re.findall("\*", url))
 
 
-# 21
+
 def CountHttp(url):
     parsed_url = urlparse(url)
     protocol = parsed_url.scheme
@@ -155,7 +147,7 @@ def CountHttp(url):
     return len(re.findall("http", url))
 
 
-# 22
+
 def check_https_protocol(url):
     parsed_url = urlparse(url)
     protocol = parsed_url.scheme
@@ -164,19 +156,19 @@ def check_https_protocol(url):
     return 0
 
 
-# 23
+
 def RatioDigitsInHostname(url):
     parsed_url = urlparse(url)
     hostname = parsed_url.hostname
     return len(re.sub("[^0-9]", "", hostname)) / len(hostname)
 
 
-# 24
+
 def RatioDigitsURL(url):
     return len(re.sub("[^0-9]", "", url)) / len(url)
 
 
-# 25
+
 def have_prefixOrSuffix(url):
     domain = urlparse(url).netloc
     if '-' in domain:
@@ -185,14 +177,14 @@ def have_prefixOrSuffix(url):
         return 0
 
 
-# 26
+
 def web_forwarding(response):
     if (response == ""):
         return 0
     return len(response.history)
 
 
-# 27
+
 # DomainRegLen
 def DomainRegLen(whois_response):
     try:
@@ -209,7 +201,7 @@ def DomainRegLen(whois_response):
         return 0
 
 
-# 28
+
 def DomainAge(domain_name):
     try:
         creation_date = domain_name.creation_date
@@ -225,7 +217,6 @@ def DomainAge(domain_name):
         return 0
 
 
-# 29
 def page_rank(key, url):
     domain = urlparse(url).netloc
     page = 'https://openpagerank.com/api/v1.0/getPageRank?domains%5B0%5D=' + domain
@@ -241,7 +232,7 @@ def page_rank(key, url):
         return 0
 
 
-# #30
+
 def dns_expiration(url):
     try:
         return 0 if len(socket.gethostbyname(get_hostname(url))) > 0 else 1
@@ -249,7 +240,7 @@ def dns_expiration(url):
         return 1
 
 
-# 31
+
 # LinksInScriptTags - Percentile of internal links
 def LinksInScriptTags(soup, url):
     i, success = 0, 0
