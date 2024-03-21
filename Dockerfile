@@ -1,15 +1,14 @@
 FROM python:3.12
 
-ENV PYTHONUNBUFFERED=1
 
-WORKDIR /phishingDetectionAPI
+RUN mkdir -p "/var/www/phishingDetectionAPI"
 
-COPY requirement.txt .
+COPY . /var/www/phishingDetectionAPI
+
+WORKDIR /var/www/phishingDetectionAPI
 
 RUN pip install -r requirement.txt
 
-COPY . .
-
 EXPOSE 8080
 
-CMD ["python3", "manage.py", "runserver"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]

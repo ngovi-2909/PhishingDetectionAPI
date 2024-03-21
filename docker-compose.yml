@@ -1,8 +1,10 @@
-version: '3.9'
+version: '3'
 
 services:
   django:
     image: phishing-detection:0.0.1
+    container_name: phishing-detection-api
+    restart: on-failure
     build: .
     ports:
       - "8080:8080"
